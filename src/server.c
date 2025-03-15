@@ -58,6 +58,8 @@ int send_response(int fd, char *header, char *content_type, void *body, int cont
     ///////////////////
     // IMPLEMENT ME! //
     ///////////////////
+    strncpy(response, "hello world", max_response_size);
+    const int response_length = strlen(response);
 
     // Send it all!
     int rv = send(fd, response, response_length, 0);
