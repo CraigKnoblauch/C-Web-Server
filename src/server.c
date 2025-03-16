@@ -58,6 +58,10 @@ int send_response(int fd, char *header, char *content_type, void *body, int cont
     ///////////////////
     // IMPLEMENT ME! //
     ///////////////////
+
+    // Response length will contain length of header and body
+    // Response needs to contain a valid http header and body
+    // recall the body format is defined by MIME type
     strncpy(response, "hello world", max_response_size);
     const int response_length = strlen(response);
 

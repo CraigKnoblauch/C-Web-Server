@@ -9,6 +9,7 @@ file(COPY ${HEADERS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(llist ${CMAKE_CURRENT_BINARY_DIR}/llist.test.c)
 add_executable(cache ${CMAKE_CURRENT_BINARY_DIR}/cache.test.c)
+add_executable(http ${CMAKE_CURRENT_BINARY_DIR}/http.test.c)
 
 
 add_library(srclib ${SOURCES})
@@ -23,4 +24,10 @@ add_test(NAME "llist" COMMAND llist)
 target_link_libraries(cache srclib)
 target_include_directories(cache PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 add_test(NAME "cache" COMMAND cache)
+
+# http tests
+target_link_libraries(http srclib)
+target_include_directories(http PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+add_test(NAME "http" COMMAND http)
+
 
