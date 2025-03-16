@@ -30,3 +30,11 @@ char* build_header(int status_code, char* status_msg, int status_msg_len, time_t
     // return resized_header;
     return header;
 }
+
+// Header should be null terminated.
+char* build_response(char* header, char* body, int body_size) {
+    char* response = malloc(strlen(header) + body_size + 1);
+    strcpy(response, header);
+    strncat(response, body, body_size);
+    return response;
+}
