@@ -8,7 +8,7 @@ int main() {
     // Test 1, test the header is properly constructed
     time_t rawtime = (time_t)1742088261; // Sat Mar 15 21:24:21 EDT 2025
 
-    char* header = build_header(200, "OK", 2, &rawtime, 100, "text/plain", 10);
+    char* header = build_header(200, "OK", &rawtime, 100, "text/plain");
     assert(header != NULL);
     printf("Received header:\n\r%s\n", header);
     char expected_header[1000];

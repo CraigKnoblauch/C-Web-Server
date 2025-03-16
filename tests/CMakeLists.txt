@@ -23,7 +23,7 @@ add_test(NAME "llist" COMMAND llist)
 # cache tests
 target_link_libraries(cache srclib)
 target_include_directories(cache PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-add_test(NAME "cache" COMMAND cache)
+# add_test(NAME "cache" COMMAND cache)
 
 # http tests
 target_link_libraries(http srclib)

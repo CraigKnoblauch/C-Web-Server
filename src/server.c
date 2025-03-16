@@ -33,6 +33,7 @@
 #include "file.h"
 #include "mime.h"
 #include "cache.h"
+#include "http.h"
 
 #define PORT "3490"  // the port users will be connecting to
 
@@ -48,21 +49,11 @@
  * 
  * Return the value from the send() function.
  */
-int send_response(int fd, char *header, char *content_type, void *body, int content_length)
+int send_response(int fd, char *header, void *body, int content_length)
 {
-    const int max_response_size = 262144;
-    char response[max_response_size];
-
-    // Build HTTP response and store it in response
-
-    ///////////////////
-    // IMPLEMENT ME! //
-    ///////////////////
-
-    // Response length will contain length of header and body
-    // Response needs to contain a valid http header and body
-    // recall the body format is defined by MIME type
-    strncpy(response, "hello world", max_response_size);
+    // const int max_response_size = 262144;
+    
+    char* response = build_response(header, (char*)body, content_length);
     const int response_length = strlen(response);
 
     // Send it all!
@@ -114,8 +105,11 @@ void resp_404(int fd)
     }
 
     mime_type = mime_type_get(filepath);
+    time_t rawtime;
+    time(&rawtime);
+    char* header = build_header(404, "NOT FOUND", &rawtime, filedata->size, mime_type);
 
-    send_response(fd, "HTTP/1.1 404 NOT FOUND", mime_type, filedata->data, filedata->size);
+    send_response(fd, header, filedata->data, filedata->size);
 
     file_free(filedata);
 }
