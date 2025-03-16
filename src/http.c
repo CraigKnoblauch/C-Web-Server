@@ -33,8 +33,9 @@ char* build_header(int status_code, char* status_msg, time_t* rawtime, int conte
 
 // Header should be null terminated.
 char* build_response(char* header, char* body, int body_size) {
-    char* response = malloc(strlen(header) + body_size + 1);
+    char* response = malloc(strlen(header) + body_size + 3);
     strcpy(response, header);
     strncat(response, body, body_size);
+    strcat(response, "\r\n");
     return response;
 }

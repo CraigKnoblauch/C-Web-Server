@@ -35,7 +35,8 @@ int main() {
                                     "Content-Length: 100\r\n"
                                     "Content-Type: text/plain\r\n"
                                     "\r\n"
-                                    "This is my body");
+                                    "This is my body"
+                                    "\r\n");
     assert(strcmp(response, expected_response) == 0);
 
     return 0;

@@ -153,6 +153,8 @@ void handle_http_request(int fd, struct cache *cache)
         return;
     }
 
+    resp_404(fd);
+
 
     ///////////////////
     // IMPLEMENT ME! //
