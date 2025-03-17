@@ -29,6 +29,7 @@
 #include <time.h>
 #include <sys/file.h>
 #include <fcntl.h>
+#include <assert.h>
 #include "net.h"
 #include "file.h"
 #include "mime.h"
@@ -137,6 +138,15 @@ char *find_start_of_body(char *header)
     ///////////////////
 }
 
+void handle_get_request(int fd, struct cache* cache)
+{
+    /**
+    *   Hash the route, and look for it's key in the hashtable.
+    *   If the key is not found, read the file from disk, send it, then
+    *   place it in the cache and remove the tail of the cache.
+    */
+}
+
 /**
  * Handle HTTP request and send response
  */
@@ -153,16 +163,32 @@ void handle_http_request(int fd, struct cache *cache)
         return;
     }
 
-    resp_404(fd);
-
-
     ///////////////////
     // IMPLEMENT ME! //
     ///////////////////
 
     // Read the first two components of the first line of the request 
+    char* line = strtok(request, "\n");
+    /**
+     * The first line has "REQUEST ROUTE PROTOCOL". Do an if else here
+     * on the REQUEST value. Pass the route off to another function
+    */ 
+    char* request_type = strtok(line, " ");
+    char* route = strtok(NULL, " ");
+    char* protocol = strtok(NULL, " ");
+    assert(strtok(NULL, " ") == NULL);
  
     // If GET, handle the get endpoints
+    if (strcmp(request_type, "GET") == 0) {
+        printf("PROCESSING GET REQUEST\n");
+        resp_404(fd);
+    } else if (strcmp(request_type, "POST") == 0) {
+        printf("PROCESSING POST REQUEST\n");
+        resp_404(fd);
+    } else {
+        printf("RECEIVED UNKNONW REQUEST: %s\n", request_type);
+        resp_404(fd);
+    }
 
     //    Check if it's /d20 and handle that special case
     //    Otherwise serve the requested file by calling get_file()
